@@ -1,4 +1,6 @@
-import 'package:aplikai/pages/welcome_page.dart';
+import 'package:aplikasi/pages/MyHomePage.dart';
+import 'package:aplikasi/pages/homePage.dart';
+import 'package:aplikasi/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomePage(),
+      home: MyHomePage(),
     );
   }
 }

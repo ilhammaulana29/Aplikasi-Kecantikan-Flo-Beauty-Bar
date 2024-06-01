@@ -1,4 +1,4 @@
-# aplikai
+# aplikasi Kecantikan
 
 A new Flutter project.
 
