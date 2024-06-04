@@ -42,7 +42,7 @@ class WelcomePage extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    primary: Color(0xFFFF8181), // Warna tombol
+                    backgroundColor: Color(0xFFFF8181), // Warna tombol
                     shadowColor: Colors.black, // Warna bayangan
                     elevation: 3, // Tinggi bayangan
                   ),

@@ -1,47 +1,14 @@
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  bool _savePassword = false;
-
-  Widget _buildTextField({
-    required String hintText,
-    required IconData icon,
-    TextInputType keyboardType = TextInputType.text,
-    bool obscureText = false,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(32),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: TextFormField(
-        keyboardType: keyboardType,
-        obscureText: obscureText,
-        autofocus: false,
-        decoration: InputDecoration(
-          hintText: hintText,
-          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-          border: OutlineInputBorder(borderSide: BorderSide.none),
-          suffixIcon: Icon(icon, color: Color(0xFFFF8181)),
-        ),
-      ),
-    );
-  }
+class _RegisterPageState extends State<RegisterPage> {
+  bool _savePassword = false; // State for checkbox
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +19,7 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           children: [
             Text(
-              'Login',
+              'Register',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: 'Roboto',
@@ -63,14 +30,32 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 20),
             _buildTextField(
+              hintText: 'Nama',
+              icon: Icons.person,
+              keyboardType: TextInputType.text,
+            ),
+            SizedBox(height: 20),
+            _buildTextField(
               hintText: 'Email',
               icon: Icons.email,
               keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(height: 20),
             _buildTextField(
+              hintText: 'No. Telephone',
+              icon: Icons.phone,
+              keyboardType: TextInputType.phone,
+            ),
+            SizedBox(height: 20),
+            _buildTextField(
               hintText: 'Password',
               icon: Icons.lock,
+              obscureText: true,
+            ),
+            SizedBox(height: 20),
+            _buildTextField(
+              hintText: 'Konfirmasi Password',
+              icon: Icons.shield,
               obscureText: true,
             ),
             SizedBox(height: 20),
@@ -113,7 +98,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 child: Text(
-                  'Login',
+                  'Register',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
@@ -121,11 +106,44 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 30),
             Center(
               child: Text(
-                'Belum punya akun? Register',
+                'Sudah punya akun? Login',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTextField({
+    required String hintText,
+    required IconData icon,
+    TextInputType keyboardType = TextInputType.text,
+    bool obscureText = false,
+  }) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(32),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: TextFormField(
+        keyboardType: keyboardType,
+        obscureText: obscureText,
+        autofocus: false,
+        decoration: InputDecoration(
+          hintText: hintText,
+          contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+          border: OutlineInputBorder(borderSide: BorderSide.none),
+          suffixIcon: Icon(icon, color: Color(0xFFFF8181)),
         ),
       ),
     );
