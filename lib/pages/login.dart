@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:convert';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -9,10 +12,14 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   bool _savePassword = false;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
 
   Widget _buildTextField({
     required String hintText,
     required IconData icon,
+    TextEditingController? controller,
     TextInputType keyboardType = TextInputType.text,
     bool obscureText = false,
   }) {
@@ -30,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
         ],
       ),
       child: TextFormField(
+        controller: controller,
         keyboardType: keyboardType,
         obscureText: obscureText,
         autofocus: false,
@@ -41,6 +49,43 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _login() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    final response = await http.post(
+      Uri.parse('http://192.168.0.110/flutterapi/login/login.php'), // Ganti dengan URL server PHP Anda
+      body: {
+        'email': _emailController.text,
+        'password': _passwordController.text,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      if (data['status'] == 'success') {
+        // Login berhasil
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.setBool('isLoggedIn', true);
+
+        Navigator.pushReplacementNamed(context, '/MyHomePage');
+      } else {
+        // Login gagal
+        print('Login failed');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed')),
+        );
+      }
+    } else {
+      print('Server error: ${response.statusCode}');
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
@@ -65,12 +110,14 @@ class _LoginPageState extends State<LoginPage> {
             _buildTextField(
               hintText: 'Email',
               icon: Icons.email,
+              controller: _emailController,
               keyboardType: TextInputType.emailAddress,
             ),
             SizedBox(height: 20),
             _buildTextField(
               hintText: 'Password',
               icon: Icons.lock,
+              controller: _passwordController,
               obscureText: true,
             ),
             SizedBox(height: 20),
@@ -103,19 +150,19 @@ class _LoginPageState extends State<LoginPage> {
               width: 200,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {
-                  // Handle register action
-                },
+                onPressed: _isLoading ? null : _login,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.pinkAccent,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(25),
                   ),
                 ),
-                child: Text(
-                  'Login',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
+                child: _isLoading
+                    ? CircularProgressIndicator(color: Colors.white)
+                    : Text(
+                        'Login',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
               ),
             ),
             SizedBox(height: 30),

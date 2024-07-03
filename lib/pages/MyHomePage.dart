@@ -1,8 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:aplikasi/pages/homePage.dart';
 import 'package:aplikasi/pages/kategori.dart';
 import 'package:aplikasi/pages/keranjang.dart';
 import 'package:aplikasi/pages/profil.dart';
-import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -41,10 +41,8 @@ class _MyHomePageState extends State<MyHomePage> {
         },
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.list_sharp), label: 'Kategori'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_cart), label: 'Keranjang'),
+          BottomNavigationBarItem(icon: Icon(Icons.list_sharp), label: 'Kategori'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: 'Keranjang'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],
       ),

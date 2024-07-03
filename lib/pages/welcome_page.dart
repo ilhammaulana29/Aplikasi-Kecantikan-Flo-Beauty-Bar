@@ -1,3 +1,4 @@
+import 'package:aplikasi/pages/MyHomePage.dart';
 import 'package:aplikasi/pages/login.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,7 @@ class WelcomePage extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             children: [
               Image.asset(
-                'images/welcome.png',
+                'images/componens/welcome.png',
                 height: 300,
               ),
               SizedBox(
@@ -84,11 +85,17 @@ class WelcomePage extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Text(
-                "Lewati",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'Roboto',
+              InkWell(
+                onTap: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => MyHomePage()));
+                },
+                child: Text(
+                  "Lewati",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                  ),
                 ),
               ),
             ],
